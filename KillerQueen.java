@@ -12,6 +12,8 @@ public class KillerQueen extends Robot
 	/**
 	 * run: KillerQueen's default behavior
 	 */
+	
+
 	public void run() {
 		// Initialization of the robot should be put here
 
@@ -23,7 +25,7 @@ public class KillerQueen extends Robot
 		// Robot main loop
 		
 		double alturaMapa = getBattleFieldHeight();
-		double larguraMapa = getBattleFieldWidth();
+		double larguraMapa = getBattleFieldWidth();	
 
 		turnLeft(getHeading());
 		
@@ -50,7 +52,7 @@ public class KillerQueen extends Robot
 			fire(3);
 			turnRight(e.getBearing());
 			scan();
-		}else if(e.getDistance() < 250){
+		}else if(e.getDistance() < 400){
 			fire(2);
 			turnRight(e.getBearing());
 			scan();
@@ -72,19 +74,20 @@ public class KillerQueen extends Robot
 	 */
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
-		double alturaMapa = getBattleFieldHeight();
-		double larguraMapa = getBattleFieldWidth();
 		
-		if(getX() <= 50){  //Bate na esquerda
+		double alturaMapa = getBattleFieldHeight();
+		double larguraMapa = getBattleFieldWidth();	
+
+		if(getX() <= 24){  //Bate na esquerda
 			turnLeft(getHeading() - 90);
 			ahead(larguraMapa/4);
-		}else if(getX() >= larguraMapa - 50){ //Bate na direita
+		}else if(getX() >= larguraMapa - 24){ //Bate na direita
 			turnLeft(getHeading() + 90);
 			ahead(larguraMapa/4);
-		}else if(getY() <= 50){ //Bate embaixo
+		}else if(getY() <= 24){ //Bate embaixo
 			turnLeft(getHeading());
 			ahead(alturaMapa/4);
-		}else if(getY() >= alturaMapa - 50){ //Bate em cima
+		}else if(getY() >= alturaMapa - 24){ //Bate em cima
 			turnLeft(getHeading() + 180);
 			ahead(alturaMapa/4);
 		}

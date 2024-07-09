@@ -12,8 +12,8 @@ public class KillerQueen extends Robot
 	/**
 	 * run: KillerQueen's default behavior
 	 */
+	double tamanho;
 	
-
 	public void run() {
 		// Initialization of the robot should be put here
 
@@ -48,14 +48,19 @@ public class KillerQueen extends Robot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
-		if(e.getDistance() < 150 && getEnergy() > 50){
+		tamanho = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
+
+		if(e.getDistance() < tamanho/5 && getEnergy() > 50){
 			fire(3);
 			turnRight(e.getBearing());
 			scan();
-		}else if(e.getDistance() < 400){
+		}else if(e.getDistance() < tamanho/4){
 			fire(2);
 			turnRight(e.getBearing());
 			scan();
+		}else if(e.getDistance() < tamanho/3){
+			fire(1);
+			turnRight(e.getBearing());
 		}else{
 			fire(1);
 		}

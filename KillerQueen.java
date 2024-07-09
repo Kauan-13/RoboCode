@@ -27,7 +27,13 @@ public class KillerQueen extends Robot
 		double alturaMapa = getBattleFieldHeight();
 		double larguraMapa = getBattleFieldWidth();	
 
-		turnLeft(getHeading());
+		//virar para cima pelo menor caminho
+		if(getHeading()>=180){
+		turnLeft(getHeading()- 360);
+		}else{
+		turnRight(-getHeading());
+		}
+		
 		
 		while(true) {
 			// Replace the next 4 lines with any behavior you would like
@@ -96,5 +102,15 @@ public class KillerQueen extends Robot
 			turnLeft(getHeading() + 180);
 			ahead(alturaMapa/4);
 		}
-	}	
+	}
+	
+	public void onWin(WinEvent e) {
+			for(int i = 0; i <2; i++){
+			turnLeft(30);
+			turnRight(30);
+			}
+			turnGunRight(360);
+	}
+
+	
 }

@@ -54,15 +54,15 @@ public class KillerQueen extends Robot
 			fire(3);
 			turnRight(e.getBearing());
 			scan();
-		}else if(e.getDistance() < tamanho/4){
-			fire(2);
+		}else if(e.getDistance() < tamanho/4 && getEnergy() > 30){
+			fire(2.5);
 			turnRight(e.getBearing());
 			scan();
-		}else if(e.getDistance() < tamanho/3){
-			fire(1);
+		}else if(e.getDistance() < tamanho/3 && getEnergy() > 10){
+			fire(2);
 			turnRight(e.getBearing());
 		}else{
-			fire(1);
+			fire(1.5);
 		}
 	}
 
@@ -71,7 +71,8 @@ public class KillerQueen extends Robot
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
-	
+		
+		
 	}
 	
 	/**
@@ -96,5 +97,5 @@ public class KillerQueen extends Robot
 			turnLeft(getHeading() + 180);
 			ahead(alturaMapa/4);
 		}
-	}	
+	}
 }

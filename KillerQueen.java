@@ -29,7 +29,7 @@ public class KillerQueen extends Robot
 
 		//virar para cima pelo menor caminho
 		if(getHeading()>=180){
-		turnLeft(getHeading()- 360);
+		turnLeft(getHeading()- 180);
 		}else{
 		turnRight(-getHeading());
 		}
@@ -78,6 +78,7 @@ public class KillerQueen extends Robot
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
 	
+
 	}
 	
 	/**
@@ -89,17 +90,49 @@ public class KillerQueen extends Robot
 		double alturaMapa = getBattleFieldHeight();
 		double larguraMapa = getBattleFieldWidth();	
 
+
 		if(getX() <= 24){  //Bate na esquerda
-			turnLeft(getHeading() - 90);
+			if(e.getBearing()<=0){
+			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+					turnRight(getHeading() +90);
+			}else{
+					System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(getHeading()- 90);
+			}
 			ahead(larguraMapa/4);
+			
+			
 		}else if(getX() >= larguraMapa - 24){ //Bate na direita
-			turnLeft(getHeading() + 90);
+			if(e.getBearing()<=0){
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnRight(getHeading() + 90);
+			}else{
+					System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(getHeading() + 90);
+			}
 			ahead(larguraMapa/4);
+			
+
 		}else if(getY() <= 24){ //Bate embaixo
-			turnLeft(getHeading());
+	
+			if(e.getBearing()<=0){
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnRight(getHeading());
+			}else{
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(getHeading());
+			}
 			ahead(alturaMapa/4);
+			
+
 		}else if(getY() >= alturaMapa - 24){ //Bate em cima
-			turnLeft(getHeading() + 180);
+			if(e.getBearing()<=0){
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnRight(getHeading() +180);
+				}else{
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(getHeading()+ 180);
+			}
 			ahead(alturaMapa/4);
 		}
 	}

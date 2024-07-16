@@ -127,21 +127,75 @@ public class KillerQueen extends Robot
 		
 		double alturaMapa = getBattleFieldHeight();
 		double larguraMapa = getBattleFieldWidth();	
-		
-		
-		if(getX() <= 24){  //Bate na esquerda
-			turnLeft(getHeading() - 90);
-			ahead(larguraMapa/4);
-		}else if(getX() >= larguraMapa - 24){ //Bate na direita
-			turnLeft(getHeading() + 90);
-			ahead(larguraMapa/4);
-		}else if(getY() <= 24){ //Bate embaixo
-			turnLeft(getHeading());
-			ahead(alturaMapa/4);
-		}else if(getY() >= alturaMapa - 24){ //Bate em cima
-			turnLeft(getHeading() + 180);
-			ahead(alturaMapa/4);
 
+		if(getX() <= 30){  //Bate na esquerda
+		//bate na esquerda (0,180)
+			//(0,270]
+			if (getHeading()>= 270 && getHeading()<360){
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnRight(90 + (360-getHeading()));
+			}
+			//(270,180)
+			else{
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(90+ (getHeading()-180));
+			}
+			ahead(larguraMapa/4);
+			
+		}else if(getX() >= larguraMapa - 30){ //Bate na direita
+		//bate na direita (0,180)
+			//(0,90]
+			if (getHeading()>0 && getHeading()<=90){
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(getHeading()+90 );
+			}
+			//(90, 180)
+			else{
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnRight(90 + (180-getHeading()));
 		}
+			ahead(larguraMapa/4);
+			
+
+		}else if(getY() <= 30){ //Bate embaixo
+		//bate embaixo (270,90)
+		//(90,180]
+		if(getHeading() >90 && getHeading() <=180){
+			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+			turnLeft(getHeading());
+		}
+		//(270,180)
+		else{
+			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+			turnRight(90+ (270-getHeading()));
+		}
+			ahead(alturaMapa/4);
+			
+
+		}else if(getY() >= alturaMapa - 30){ //Bate em cima
+		//bate em cima (270, 90)
+		//[0,90)
+		if(getHeading()>=0 && getHeading()<90){
+			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+			turnRight(90+ (90-getHeading()));
+		}
+		//(270,0)
+		else{
+			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+			turnLeft(90+ (getHeading()-270));
+		}
+	
+		}
+			ahead(alturaMapa/4);
 	}
+	
+	public void onWin(WinEvent e) {
+			for(int i = 0; i <2; i++){
+			turnLeft(30);
+			turnRight(30);
+			}
+			turnGunRight(360);
+	}
+
+	
 }

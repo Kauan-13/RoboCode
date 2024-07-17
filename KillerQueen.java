@@ -1,29 +1,12 @@
 package garage;
 import robocode.*;
-//import java.awt.Color;
 
-// API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
-
-/**
- * KillerQueen - a robot by (your name here)
- */
 public class KillerQueen extends Robot
 {
-	/**
-	 * run: KillerQueen's default behavior
-	 */
 	double tamanho;
 	boolean executou = false;
 	
 	public void run() {
-		// Initialization of the robot should be put here
-
-		// After trying out your robot, try uncommenting the import at the top,
-		// and the next line:
-
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
-
-		// Robot main loop
 		
 		double alturaMapa = getBattleFieldHeight();
 		double larguraMapa = getBattleFieldWidth();	
@@ -34,9 +17,6 @@ public class KillerQueen extends Robot
 		double[] wallDistance = {up, down, right, left};
 		double menorDistancia = wallDistance[0];
 		int direcao = 0;
-
-
-// se robo = posição 10x em um mapa de 50x e 15y em um mapa de 35y 
 
 		for (int i = 0; i<4; i++){
 			if (wallDistance[i] < menorDistancia){
@@ -72,7 +52,6 @@ public class KillerQueen extends Robot
 				
 		
 		while(true) {
-			// Replace the next 4 lines with any behavior you would like
 			ahead(alturaMapa/4);
 			turnGunRight(360);
 			turnLeft(90);
@@ -84,47 +63,46 @@ public class KillerQueen extends Robot
 			turnLeft(90);
 		}
 	}
-
-	/**
-	 * onScannedRobot: What to do when you see another robot
-	 */
+	
 	public void onScannedRobot(ScannedRobotEvent e) {
-		// Replace the next line with any behavior you would like
 		tamanho = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
-
+		System.out.println();
 		if (executou){
-			if(e.getDistance() < tamanho/5 && getEnergy() > 50){
+			if(e.getDistance() < tamanho/5 && getEnergy() > 65){
 				fire(3);
 				turnRight(e.getBearing());
 				scan();
-			}else if(e.getDistance() < tamanho/4 && getEnergy() > 30){
+			}else if(e.getDistance() < tamanho/4 && getEnergy() > 50){
 				fire(2.5);
 				turnRight(e.getBearing());
 				scan();
-			}else if(e.getDistance() < tamanho/3 && getEnergy() > 10){
+			}else if(e.getDistance() < tamanho/3){
 				fire(2);
 				turnRight(e.getBearing());
+				scan();
+			}else if(e.getDistance() < tamanho/3 && getEnergy() <= 30 && e.getEnergy() > getEnergy()){
+				fire(3);
+				turnRight(e.getBearing());
+				ahead(e.getDistance() + 10);
 			}else{
 				fire(1.5);
 			}
 		}
 	}
 
-	/**
-	 * onHitByBullet: What to do when you're hit by a bullet
-	 */
 	public void onHitByBullet(HitByBulletEvent e) {
-		// Replace the next line with any behavior you would like
-		
 		
 	}
 	
-	/**
-	 * onHitWall: What to do when you hit a wall
-	 */
+	public void onHitRobot(HitRobotEvent e){
+		fire(3);
+		back(20);
+		turnRight(e.getBearing());
+		ahead(40);
+	}
+	
 	public void onHitWall(HitWallEvent e) {
-		// Replace the next line with any behavior you would like
-		
+
 		double alturaMapa = getBattleFieldHeight();
 		double larguraMapa = getBattleFieldWidth();	
 

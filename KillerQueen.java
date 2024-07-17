@@ -1,13 +1,21 @@
 package garage;
 import robocode.*;
+import java.awt.Color;
 
 public class KillerQueen extends Robot
-{
+	{
 	double tamanho;
 	boolean executou = false;
 	
 	public void run() {
+	
+		setBodyColor(Color.red);
+		setGunColor(Color.yellow);
+		setRadarColor(Color.black);
+		setBulletColor(Color.white);
+		setScanColor(Color.yellow);
 		
+
 		double alturaMapa = getBattleFieldHeight();
 		double larguraMapa = getBattleFieldWidth();	
 		double up = alturaMapa - getY();

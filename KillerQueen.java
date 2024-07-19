@@ -18,17 +18,17 @@ public class KillerQueen extends Robot
 
 		double alturaMapa = getBattleFieldHeight();
 		double larguraMapa = getBattleFieldWidth();	
-		double up = alturaMapa - getY();
-		double down = getY();
-		double left = getX();
-		double right = larguraMapa - getX();
-		double[] wallDistance = {up, down, right, left};
-		double menorDistancia = wallDistance[0];
+		double distanciaCima = alturaMapa - getY();
+		double distanciaBaixo = getY();
+		double distanciaEsquerda = getX();
+		double distanciaDireita = larguraMapa - getX();
+		double[] distanciasParede = {distanciaCima, distanciaBaixo, distanciaDireita, distanciaEsquerda};
+		double menorDistancia = distanciasParede[0];
 		int direcao = 0;
 
 		for (int i = 0; i<4; i++){
-			if (wallDistance[i] < menorDistancia){
-				menorDistancia = wallDistance[i] ;
+			if (distanciasParede[i] < menorDistancia){
+				menorDistancia = distanciasParede[i] ;
 				direcao = i;
 			}
 		}
@@ -36,22 +36,22 @@ public class KillerQueen extends Robot
 		switch (direcao){
 			case 0:
 				turnLeft(getHeading() + 20);
-				ahead(up - 45);
+				ahead(distanciaCima - 45);
 				executou = true;
 				break;
 			case 1:
 				turnLeft(getHeading() - 160);
-				ahead(down - 45);
+				ahead(distanciaBaixo - 45);
 				executou = true;
 				break;
 			case 2:
 				turnLeft(getHeading() + 250);
-				ahead(right - 45);
+				ahead(distanciaDireita - 45);
 				executou = true;
 				break;
 			case 3:
 				turnLeft(getHeading() - 250);	
-				ahead (left - 45);
+				ahead (distanciaEsquerda - 45);
 				executou = true;
 				break;
 		}
@@ -115,64 +115,46 @@ public class KillerQueen extends Robot
 		double larguraMapa = getBattleFieldWidth();	
 
 		if(getX() <= 30){  //Bate na esquerda
-		//bate na esquerda (0,180)
-			//(0,270]
-			if (getHeading()>= 270 && getHeading()<360){
+			//bate na esquerda (0,180)	
+			if (getHeading()>= 270 && getHeading()<360){ //(0,270]
 				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
 				turnRight(90 + (360-getHeading()));
-			}
-			//(270,180)
-			else{
+			}else{ //(270,180)
 				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
 				turnLeft(90+ (getHeading()-180));
 			}
 			ahead(larguraMapa/4);
-			
 		}else if(getX() >= larguraMapa - 30){ //Bate na direita
-		//bate na direita (0,180)
-			//(0,90]
-			if (getHeading()>0 && getHeading()<=90){
+			//bate na direita (0,180)
+			if (getHeading()>0 && getHeading()<=90){ //(0,90]
 				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
 				turnLeft(getHeading()+90 );
-			}
-			//(90, 180)
-			else{
+			}else{ //(90, 180)
 				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
 				turnRight(90 + (180-getHeading()));
-		}
+			}	
 			ahead(larguraMapa/4);
-			
-
 		}else if(getY() <= 30){ //Bate embaixo
-		//bate embaixo (270,90)
-		//(90,180]
-		if(getHeading() >90 && getHeading() <=180){
-			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
-			turnLeft(getHeading());
-		}
-		//(270,180)
-		else{
-			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
-			turnRight(90+ (270-getHeading()));
-		}
+			//bate embaixo (270,90)		
+			if(getHeading() >90 && getHeading() <=180){ //(90,180]
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(getHeading());
+			}else{ //(270,180)
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnRight(90+ (270-getHeading()));
+			}
 			ahead(alturaMapa/4);
-			
-
 		}else if(getY() >= alturaMapa - 30){ //Bate em cima
 		//bate em cima (270, 90)
-		//[0,90)
-		if(getHeading()>=0 && getHeading()<90){
-			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
-			turnRight(90+ (90-getHeading()));
+			if(getHeading()>=0 && getHeading()<90){ //[0,90)
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnRight(90+ (90-getHeading()));
+			}else{ //(270,0)
+				System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
+				turnLeft(90+ (getHeading()-270));
+			}
 		}
-		//(270,0)
-		else{
-			System.out.println("Bearing: " + e.getBearing() + " Heading: " + getHeading());
-			turnLeft(90+ (getHeading()-270));
-		}
-	
-		}
-			ahead(alturaMapa/4);
+		ahead(alturaMapa/4);
 	}
 	
 	public void onWin(WinEvent e) {
